@@ -15,12 +15,11 @@
 #include <time.h>
 #include <stdbool.h>
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "EndlessLoop"
-
 #define SAVED_CONVERSATION "dialog.txt"
 
 int main(void) {
+
+    bool running = true;
 
     srand(time(NULL));
 
@@ -28,12 +27,14 @@ int main(void) {
 
     FILE *dialog = fopen(SAVED_CONVERSATION, "w+");
 
-    while (true) {
+    while (running) {
 
         fprintf(stdout, "%s", USER_USER);
         fprintf(dialog, "%s", USER_USER);
 
         message_get = read_string();
+
+        fprintf(dialog, "%s\n", message_get);
 
         int cmd = parse_command(message_get);
 
@@ -55,9 +56,17 @@ int main(void) {
                 break;
 
             case CASE_GENERAL:
+//              Necessary semicolon ????
+                ;
+                size_t ret = random_custom(0, 5);
+                fprintf(stdout, "%s%s\n", USER_CHATBOT, general_responses[ret]);
+                fprintf(dialog, "%s%s\n", USER_CHATBOT, general_responses[ret]);
                 break;
 
             case CASE_EXIT:
+                fprintf(stdout, "%s Whatever... as if I care... at least I can finally get a break from your dumb-ass... Conversation saved to file.\n", USER_CHATBOT);
+                fprintf(dialog, "%s Whatever... as if I care... at least I can finally get a break from your dumb-ass... Conversation saved to file.\n", USER_CHATBOT);
+                running = false;
                 break;
 
             case CASE_FORTY_TWO:
@@ -69,10 +78,11 @@ int main(void) {
                 break;
 
         }
+
+        free(message_get);
     }
 
     fclose(dialog);
     return 0;
 
 }
-#pragma clang diagnostic pop
