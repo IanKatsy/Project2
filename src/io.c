@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char *readString(void) {
+char *read_string(void) {
 
     char *str = NULL, *cp;
     char ch;
@@ -17,7 +17,7 @@ char *readString(void) {
 
         len++;
 
-        cp = realloc(str, len);
+        cp = realloc(str, len * sizeof(char));
 
         if (cp == NULL) {
             perror("realloc() returned a NULL pointer");

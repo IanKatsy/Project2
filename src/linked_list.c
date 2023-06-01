@@ -10,38 +10,40 @@ gtpList *lastNode(gtpList *root) {
     return root;
 }
 
-void swap(char *str1, char *str2) {
-    char *temp = str1;
-    str1 = str2;
-    str2 = temp;
-}
-
 gtpList *genListElement(char *concept,
                         char *sentence,
                         int timesUsed,
-                        char *learnedFrom,
-                        gtpList *head) {
+                        char *learnedFrom) {
 
-    if (head->next == NULL && head->prev == NULL && head->sentence == NULL && head->concept == NULL) {
-        head->timesUsed = timesUsed;
+    if (list_head.concept != NULL) {
+        gtpList *ret = malloc(sizeof(gtpList));
 
-        strcpy(head->concept, concept);
-        strcpy(head->sentence, sentence);
-        strcpy(head->learnedFrom, learnedFrom);
+        ret->concept = concept;
+        ret->sentence = sentence;
+        ret->timesUsed = timesUsed;
+        strcpy(ret->learnedFrom, learnedFrom);
 
-        return head;
+        return ret;
+
     }
 
-    gtpList *node = malloc(sizeof(gtpList));
+    list_head.concept = concept;
+    list_head.sentence = sentence;
+    list_head.timesUsed = timesUsed;
+    strcpy(list_head.learnedFrom, learnedFrom);
 
-    node->timesUsed = timesUsed;
+    return &list_head;
+}
 
-    strcpy(node->concept, concept);
-    strcpy(node->sentence, sentence);
-    strcpy(node->learnedFrom, learnedFrom);
+gtpList *copy_list_element(gtpList cp) {
 
-    gtpList *tail = lastNode(&head);
+    size_t size = sizeof cp;
 
+    gtpList *ret = malloc(size);
+
+    memcpy(ret, &cp, size);
+
+    return ret;
 }
 
 void readFile(char *filePath, gtpList *head) {
@@ -63,7 +65,7 @@ void readFile(char *filePath, gtpList *head) {
 
         splitStrings(str, concept, sentence, split);
 
-        genListElement(concept, sentence, 0, LEARNED_FL, head);
+//        genListElement(concept, sentence, 0, LEARNED_FL, head);
     }
 
     fclose(fp);
