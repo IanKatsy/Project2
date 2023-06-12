@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-gtpList *lastNode(gtpList *root) {
+gtpList *last_node(gtpList *root) {
 
     while (root && root->next)
         root = root->next;
@@ -10,53 +10,83 @@ gtpList *lastNode(gtpList *root) {
     return root;
 }
 
-gtpList *genListElement(char *concept,
-                        char *sentence,
-                        int timesUsed,
-                        char *learnedFrom) {
-
-    gtpList *new_ptr, *previous_ptr, *current_ptr;
-
-    size_t size = sizeof(gtpList);
-    new_ptr = malloc(size);
-
-    if (new_ptr == NULL) {
-        perror("malloc() returned a NULL pointer");
-    }
-
-    new_ptr->concept = strdup(concept);
-    new_ptr->absolute_concept = strdup(concept);
-    str_to_upper(new_ptr->absolute_concept);
-
-    new_ptr->sentence = strdup(sentence);
-
+void gen_node(char *concept, char *sentence, int timesUsed, char *learnedFrom) {
+    gtpList *node = malloc(sizeof(gtpList));
+    node->concept = strdup(concept);
+    str_to_upper(concept);
+    node->absolute_concept = strdup(concept);
     free(concept);
+    node->sentence = strdup(sentence);
     free(sentence);
+    node->timesUsed = timesUsed;
+    strncpy(node->learnedFrom, learnedFrom, 5);
+    node->next = NULL;
+    node->prev = NULL;
 
-    new_ptr->timesUsed = timesUsed;
-    strcpy(new_ptr->learnedFrom, learnedFrom);
-    new_ptr->next = NULL;
-    new_ptr->prev = NULL;
+    insert_and_sort(node);
+}
 
-    previous_ptr = NULL;
-    current_ptr = list_head;
-
-    while (current_ptr != NULL &&
-    compare_strings(new_ptr->absolute_concept,
-                    current_ptr->absolute_concept) < 0
-            ) {
-        previous_ptr = current_ptr;
-        current_ptr = current_ptr->next;
-    }
-
-    if (previous_ptr == NULL) {
-        list_head = new_ptr;
+void insert_and_sort(gtpList *node) {
+    if (list_head == NULL) {
+        // The list is empty, make the new node the head
+        list_head = node;
+        node->next = NULL;
+        node->prev = NULL;
     } else {
-        previous_ptr->next = new_ptr;
-        new_ptr->next = current_ptr;
+        // Traverse the list to find the appropriate position to insert the node
+        gtpList *current = list_head;
+        while (current != NULL && strcmp(current->absolute_concept, node->absolute_concept) < 0) {
+            current = current->next;
+        }
+
+        if (current == NULL) {
+            // Insert at the end of the list
+            gtpList *prev = list_head;
+            while (prev->next != NULL) {
+                prev = prev->next;
+            }
+            prev->next = node;
+            node->prev = prev;
+            node->next = NULL;
+        } else if (current->prev == NULL) {
+            // Insert at the beginning of the list
+            node->next = current;
+            current->prev = node;
+            node->prev = NULL;
+            list_head = node;
+        } else {
+            // Insert in the middle of the list
+            node->next = current;
+            node->prev = current->prev;
+            current->prev->next = node;
+            current->prev = node;
+        }
+    }
+}
+
+void delete_node(gtpList *node) {
+    if (node == NULL) {
+        return;
     }
 
-    return new_ptr;
+    if (node == list_head) {
+        // If the node is the head of the list
+        list_head = node->next;
+        if (list_head != NULL) {
+            list_head->prev = NULL;
+        }
+    } else {
+        // If the node is not the head of the list
+        node->prev->next = node->next;
+        if (node->next != NULL) {
+            node->next->prev = node->prev;
+        }
+    }
+
+    free(node->concept);
+    free(node->sentence);
+    free(node->absolute_concept);
+    free(node);
 }
 
 int read_file(const char *filePath) {
@@ -85,7 +115,7 @@ int read_file(const char *filePath) {
         str = read_line(fp);
         int split = parse_str(str);
 
-        if (split == -1) {
+        if (split == PARSE_ERROR) {
             fprintf(stdout, "Format error in line %d!\n", line_count);
             fprintf(dialog, "Format error in line %d!\n", line_count);
             free(str);
@@ -96,7 +126,7 @@ int read_file(const char *filePath) {
 
         split_strings(str, &concept, &sentence, split);
 
-        genListElement(concept, sentence, 0, LEARNED_FL);
+        gen_node(concept, sentence, 0, LEARNED_FL);
     }
 
     fclose(fp);

@@ -12,7 +12,7 @@ int parse_str(const char *str) {
 
     while (1) {
         if (*(str + i) == 0)
-            return -1;
+            return PARSE_ERROR;
 
         if (*(str + i) == ':')
             return i;

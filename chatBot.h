@@ -3,6 +3,8 @@
 
 #define WIKI_DEBUG "../wikipedia_100.txt"
 
+#define DEBUG_EXIT 42069
+
 #define LEARNED_KB "kbrd"
 #define LEARNED_FL "file"
 
@@ -38,10 +40,9 @@ extern const char *general_responses[];
 
 extern gtpList *list_head;
 
-gtpList *genListElement(char *concept,
-                        char *sentence,
-                        int timesUsed,
-                        char *learnedFrom);
+void insert_and_sort(gtpList *node);
+
+void gen_node(char *concept, char *sentence, int timesUsed, char *learnedFrom);
 
 char *read_line(FILE *fp);
 
@@ -61,6 +62,12 @@ char *read_string(void);
 #endif
 
 int read_file(const char *filePath);
+
+#ifndef PARSE_VALUES
+#define PARSE_VALUES
+
+#define PARSE_ERROR (-1)
+#endif
 
 int parse_str(const char *str);
 

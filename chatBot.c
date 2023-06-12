@@ -48,8 +48,9 @@ int main(void) {
                 gtpList *list = list_head;
                 while (list) {
 
-                    fprintf(stdout, "%s %s: %s\n", list->absolute_concept,list->concept, list->sentence);
-                    fprintf(dialog, "%s %s: %s\n", list->absolute_concept,list->concept, list->sentence);
+                    // sentences start with ' ' on purpose
+                    fprintf(stdout, "%s:%s\n",list->concept, list->sentence);
+                    fprintf(dialog, "%s:%s\n",list->concept, list->sentence);
 
                     list = list->next;
                 }
@@ -91,15 +92,34 @@ int main(void) {
 
                 int split = parse_str(keyboard_read);
 
-                if (split == -1) {
+                if (split == PARSE_ERROR) {
                     fprintf(stdout, "Input format error!\n");
                     fprintf(dialog, "Input format error!\n");
                 }
 
                 split_strings(keyboard_read, &concept, &sentence, split);
 
+                gen_node(strdup(concept),
+                         sentence,
+                         0,
+                         LEARNED_KB);
 
-                gtpList *new = genListElement(concept, sentence, 0, LEARNED_KB);
+                gtpList *new = list_head;
+
+                while (1) {
+
+                    if (new == NULL) {
+                        // TODO: added element not found in list, "throw" error
+                        exit(DEBUG_EXIT);
+                    }
+
+                    if (!strcmp(new->concept, concept)) {
+                        break;
+                    }
+                    new = new->next;
+                }
+
+                free(concept);
 
                 fprintf(stdout,
                         "%s learned: %s\n",
