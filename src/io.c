@@ -2,17 +2,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <ctype.h>
+#include <stdbool.h>
+
 char *read_string(void) {
 
     char *str = NULL, *cp;
     char ch;
     int len = 0;
 
+    bool whitespace_check = false;
+
     do {
         ch = getchar();
 
         if (ch == '\n' || ch == EOF) {
             ch = '\0';
+        }
+
+        if (isspace(ch)) {
+
+            if (whitespace_check)
+                continue;
+
+            whitespace_check = true;
+            ch = ' ';
+
+        } else {
+            whitespace_check = false;
         }
 
         len++;

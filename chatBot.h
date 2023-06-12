@@ -25,33 +25,53 @@ enum commands {
 typedef struct glist {
     char *concept;          // the concept learned
     char *sentence;         // the sentence associated with the concept
-    int timesUsed;          //no of times the concept was used to an answer
-    char learnedFrom[5];    //learned either from "file" or "kbrd"
+    int timesUsed;          // no of times the concept was used to an answer
+    char learnedFrom[5];    // learned either from "file" or "kbrd"
     struct glist *next;
     struct glist *prev;
+    char *absolute_concept; // will be only used for sorting purposes
 } gtpList;
+
+extern FILE *dialog;
 
 extern const char *general_responses[];
 
-extern gtpList list_head;
+extern gtpList *list_head;
 
 gtpList *genListElement(char *concept,
                         char *sentence,
                         int timesUsed,
                         char *learnedFrom);
 
-char *readLine(FILE *fp);
+char *read_line(FILE *fp);
 
 char *read_string(void);
 
-void readFile(char *filePath, gtpList *head);
+#ifndef COMMANDS_PARSE
+#define COMMANDS_PARSE
 
-int parseStr(const char *str);
+#define COMMAND_LEARN_KB      "learn this > "
+#define COMMAND_LEARN_FL      "read this > "
+#define COMMAND_FORGET        "forget this > "
+#define COMMAND_LEAVE         "So Long, and Thanks for All the Fish"
+#define COMMAND_FORTY_TWO     "What is the meaning of Life, The Universe, and Everything?"
+#define COMMAND_ALL_KNOWLEDGE "What do you know about?"
+#define COMMAND_PURE_PRINT    "What do you talk about?"
 
-void splitStrings(char *source, char *concept, char *sentence, int split);
+#endif
+
+int read_file(const char *filePath);
+
+int parse_str(const char *str);
+
+void split_strings(char *source, char **concept, char **sentence, int split);
 
 int parse_command(const char *cp);
 
-int random_custom(int l_bound, h_bound);
+int random_custom(int l_bound, int h_bound);
+
+void str_to_upper(char *string);
+
+int compare_strings(char *string1, char *string2);
 
 #endif // PROJECT2_CHATBOT_H

@@ -9,11 +9,6 @@ const char *general_responses[] = {
     "Ok I get it!!! Are you always this annoying?"
 };
 
-gtpList list_head = {
-        NULL,
-        NULL,
-        0,
-        {0},
-        NULL,
-        NULL
-};
+gtpList *list_head = NULL;
+
+FILE *dialog;

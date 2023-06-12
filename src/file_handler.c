@@ -2,17 +2,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char *readLine(FILE *fp) {
+#include <ctype.h>
+#include <stdbool.h>
+
+char *read_line(FILE *fp) {
 
     char *str = NULL, *cp;
     char ch;
     int len = 0;
+
+    bool whitespace_check = false;
 
     do {
         ch = fgetc(fp);
 
         if (ch == '\n' || ch == EOF) {
             ch = '\0';
+        }
+
+        if (isspace(ch)) {
+
+            if (whitespace_check)
+                continue;
+
+            whitespace_check = true;
+            ch = ' ';
+
+        } else {
+            whitespace_check = false;
         }
 
         len++;

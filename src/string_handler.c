@@ -4,7 +4,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-int parseStr(const char *str) {
+#include <ctype.h>
+
+int parse_str(const char *str) {
 
     int i = 0;
 
@@ -20,41 +22,46 @@ int parseStr(const char *str) {
 
 }
 
-void splitStrings(char *source, char *concept, char *sentence, int split) {
+void split_strings(char *source, char **concept, char **sentence, int split) {
+
+    if (*concept != NULL || *sentence != NULL) {
+        printf("concept or sentences aren't NULL");
+    }
 
     size_t len = strlen(source);
 
     int i;
 
-    concept = malloc(split + 1);
+    char *get_concept = malloc(split + 1);
+
+    if (get_concept == NULL) {
+        perror("malloc() returned a NULL pointer!\n");
+        exit(0);
+    }
+
+    *concept = get_concept;
 
     for (i = 0; i < split; i++) {
-        concept[i] = source[i];
+        get_concept[i] = source[i];
     }
 
     size_t length = len - split;
-    sentence = malloc(length);
+    char *get_sentence = malloc(length);
+
+    if (get_sentence == NULL) {
+        perror("malloc() returned a NULL pointer!\n");
+        exit(0);
+    }
+
+    *sentence = get_sentence;
 
     for (i = 0; i < length; i++) {
-        sentence[i] = source[i + split + 1];
+        get_sentence[i] = source[i + split + 1];
     }
 
     free(source);
 
 }
-
-#ifndef COMMANDS_PARSE
-#define COMMANDS_PARSE
-
-#define COMMAND_LEARN_KB      "learn this > "
-#define COMMAND_LEARN_FL      "read this > "
-#define COMMAND_FORGET        "forget this > "
-#define COMMAND_LEAVE         "So Long, and Thanks for All the Fish"
-#define COMMAND_FORTY_TWO     "What is the meaning of Life, The Universe, and Everything?"
-#define COMMAND_ALL_KNOWLEDGE "What do you know about?"
-#define COMMAND_PURE_PRINT    "What do you talk about?"
-
-#endif
 
 int parse_command(const char *cp) {
 
@@ -81,4 +88,31 @@ int parse_command(const char *cp) {
 
 
     return CASE_GENERAL;
+}
+
+void str_to_upper(char *string) {
+
+    size_t len = strlen(string);
+    int i;
+
+    for (i = 0; i < len; i++) {
+        if (isalpha(*(string + i))) {
+            *(string + i) = (char) toupper(*(string + i));
+        }
+    }
+
+}
+
+int compare_strings(char *string1, char *string2) { // strcmp was acting up
+
+    int i;
+
+    for (i = 0; i < strlen(string1); i++) {
+        if (string1[i] != string2[i]) {
+            break;
+        }
+    }
+
+    return string1[i] - string2[i];
+
 }

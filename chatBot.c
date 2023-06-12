@@ -11,9 +11,9 @@
 #include "chatBot.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <time.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define SAVED_CONVERSATION "dialog.txt"
 
@@ -25,7 +25,7 @@ int main(void) {
 
     char *message_get;
 
-    FILE *dialog = fopen(SAVED_CONVERSATION, "w+");
+    dialog = fopen(SAVED_CONVERSATION, "w+");
 
     while (running) {
 
@@ -41,22 +41,83 @@ int main(void) {
         switch (cmd) {
 
             case CASE_ALL_KNOWN:
+
+                fprintf(stdout, "%s", USER_CHATBOT);
+                fprintf(dialog, "%s", USER_CHATBOT);
+
+                gtpList *list = list_head;
+                while (list) {
+
+                    fprintf(stdout, "%s %s: %s\n", list->absolute_concept,list->concept, list->sentence);
+                    fprintf(dialog, "%s %s: %s\n", list->absolute_concept,list->concept, list->sentence);
+
+                    list = list->next;
+                }
                 break;
 
             case CASE_PURE_PRINT:
                 break;
 
             case CASE_LEARNED_FL:
+
+                ;
+                const char *file_read = strdup(message_get + strlen(COMMAND_LEARN_FL));
+
+                int status = read_file(file_read);
+
+                if (status) {
+                    break;
+                }
+
+                fprintf(stdout,
+                        "%s read file: %s\n",
+                        USER_CHATBOT,
+                        file_read);
+
+                fprintf(dialog,
+                        "%s read file: %s\n",
+                        USER_CHATBOT,
+                        file_read);
+
                 break;
 
             case CASE_LEARNED_KB:
+
+                ;
+                char *keyboard_read = strdup(message_get + strlen(COMMAND_LEARN_FL));
+
+                char *concept = NULL, *sentence = NULL;
+
+
+                int split = parse_str(keyboard_read);
+
+                if (split == -1) {
+                    fprintf(stdout, "Input format error!\n");
+                    fprintf(dialog, "Input format error!\n");
+                }
+
+                split_strings(keyboard_read, &concept, &sentence, split);
+
+
+                gtpList *new = genListElement(concept, sentence, 0, LEARNED_KB);
+
+                fprintf(stdout,
+                        "%s learned: %s\n",
+                        USER_CHATBOT,
+                        new->concept);
+
+                fprintf(dialog,
+                        "%s learned: %s\n",
+                        USER_CHATBOT,
+                        new->concept);
+
                 break;
 
             case CASE_FORGET:
                 break;
 
             case CASE_GENERAL:
-//              Necessary semicolon ????
+
                 ;
                 size_t ret = random_custom(0, 5);
                 fprintf(stdout, "%s%s\n", USER_CHATBOT, general_responses[ret]);

@@ -15,58 +15,91 @@ gtpList *genListElement(char *concept,
                         int timesUsed,
                         char *learnedFrom) {
 
-    if (list_head.concept != NULL) {
-        gtpList *ret = malloc(sizeof(gtpList));
+    gtpList *new_ptr, *previous_ptr, *current_ptr;
 
-        ret->concept = concept;
-        ret->sentence = sentence;
-        ret->timesUsed = timesUsed;
-        strcpy(ret->learnedFrom, learnedFrom);
+    size_t size = sizeof(gtpList);
+    new_ptr = malloc(size);
 
-        return ret;
-
+    if (new_ptr == NULL) {
+        perror("malloc() returned a NULL pointer");
     }
 
-    list_head.concept = concept;
-    list_head.sentence = sentence;
-    list_head.timesUsed = timesUsed;
-    strcpy(list_head.learnedFrom, learnedFrom);
+    new_ptr->concept = strdup(concept);
+    new_ptr->absolute_concept = strdup(concept);
+    str_to_upper(new_ptr->absolute_concept);
 
-    return &list_head;
+    new_ptr->sentence = strdup(sentence);
+
+    free(concept);
+    free(sentence);
+
+    new_ptr->timesUsed = timesUsed;
+    strcpy(new_ptr->learnedFrom, learnedFrom);
+    new_ptr->next = NULL;
+    new_ptr->prev = NULL;
+
+    previous_ptr = NULL;
+    current_ptr = list_head;
+
+    while (current_ptr != NULL &&
+    compare_strings(new_ptr->absolute_concept,
+                    current_ptr->absolute_concept) < 0
+            ) {
+        previous_ptr = current_ptr;
+        current_ptr = current_ptr->next;
+    }
+
+    if (previous_ptr == NULL) {
+        list_head = new_ptr;
+    } else {
+        previous_ptr->next = new_ptr;
+        new_ptr->next = current_ptr;
+    }
+
+    return new_ptr;
 }
 
-gtpList *copy_list_element(gtpList cp) {
+int read_file(const char *filePath) {
 
-    size_t size = sizeof cp;
+    printf("FILEPATH '%s'\n",
+           filePath);
 
-    gtpList *ret = malloc(size);
+    FILE *fp = fopen(filePath,
+                     "r");
 
-    memcpy(ret, &cp, size);
+    if (fp == NULL) {
+        fprintf(stdout,
+                "fopen() returned a NULL pointer, possibly file doesn't exist or user doesn't have correct permissions!\n");
+        fprintf(dialog,
+                "fopen() returned a NULL pointer, possibly file doesn't exist or user doesn't have correct permissions!\n");
+        return 1;
+    }
 
-    return ret;
-}
-
-void readFile(char *filePath, gtpList *head) {
-
-    FILE *fp = fopen(filePath, "r");
     char *str;
+    int line_count = 0;
 
     while (!feof(fp)) {
-        str = readLine(fp);
-        int split = parseStr(str);
+
+        line_count++;
+
+        str = read_line(fp);
+        int split = parse_str(str);
 
         if (split == -1) {
-            printf("Format error in line:\n'%s'\n", str);
+            fprintf(stdout, "Format error in line %d!\n", line_count);
+            fprintf(dialog, "Format error in line %d!\n", line_count);
             free(str);
             continue;
         }
 
         char *concept = NULL, *sentence = NULL;
 
-        splitStrings(str, concept, sentence, split);
+        split_strings(str, &concept, &sentence, split);
 
-//        genListElement(concept, sentence, 0, LEARNED_FL, head);
+        genListElement(concept, sentence, 0, LEARNED_FL);
     }
 
     fclose(fp);
+
+    return 0;
 }
