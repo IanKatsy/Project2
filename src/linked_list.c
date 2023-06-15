@@ -70,66 +70,25 @@ void delete_node(gtpList *node) {
     }
 
     if (node == list_head) {
-        // If the node is the head of the list
+
         list_head = node->next;
+
         if (list_head != NULL) {
             list_head->prev = NULL;
         }
+
     } else {
-        // If the node is not the head of the list
+
         node->prev->next = node->next;
+
         if (node->next != NULL) {
             node->next->prev = node->prev;
         }
+
     }
 
     free(node->concept);
     free(node->sentence);
     free(node->absolute_concept);
     free(node);
-}
-
-int read_file(const char *filePath) {
-
-    printf("FILEPATH '%s'\n",
-           filePath);
-
-    FILE *fp = fopen(filePath,
-                     "r");
-
-    if (fp == NULL) {
-        fprintf(stdout,
-                "fopen() returned a NULL pointer, possibly file doesn't exist or user doesn't have correct permissions!\n");
-        fprintf(dialog,
-                "fopen() returned a NULL pointer, possibly file doesn't exist or user doesn't have correct permissions!\n");
-        return 1;
-    }
-
-    char *str;
-    int line_count = 0;
-
-    while (!feof(fp)) {
-
-        line_count++;
-
-        str = read_line(fp);
-        int split = parse_str(str);
-
-        if (split == PARSE_ERROR) {
-            fprintf(stdout, "Format error in line %d!\n", line_count);
-            fprintf(dialog, "Format error in line %d!\n", line_count);
-            free(str);
-            continue;
-        }
-
-        char *concept = NULL, *sentence = NULL;
-
-        split_strings(str, &concept, &sentence, split);
-
-        gen_node(concept, sentence, 0, LEARNED_FL);
-    }
-
-    fclose(fp);
-
-    return 0;
 }

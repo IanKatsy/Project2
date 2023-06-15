@@ -17,6 +17,8 @@
 
 #define SAVED_CONVERSATION "dialog.txt"
 
+void do_nothing() {}
+
 int main(void) {
 
     bool running = true;
@@ -42,6 +44,7 @@ int main(void) {
 
             case CASE_ALL_KNOWN:
 
+                do_nothing();
                 fprintf(stdout, "%s", USER_CHATBOT);
                 fprintf(dialog, "%s", USER_CHATBOT);
 
@@ -49,19 +52,20 @@ int main(void) {
                 while (list) {
 
                     // sentences start with ' ' on purpose
-                    fprintf(stdout, "%s:%s\n",list->concept, list->sentence);
-                    fprintf(dialog, "%s:%s\n",list->concept, list->sentence);
+                    fprintf(stdout, "%s:%s\n", list->concept, list->sentence);
+                    fprintf(dialog, "%s:%s\n", list->concept, list->sentence);
 
                     list = list->next;
                 }
                 break;
 
             case CASE_PURE_PRINT:
+                do_nothing();
                 break;
 
             case CASE_LEARNED_FL:
 
-                ;
+                do_nothing();
                 const char *file_read = strdup(message_get + strlen(COMMAND_LEARN_FL));
 
                 int status = read_file(file_read);
@@ -84,11 +88,10 @@ int main(void) {
 
             case CASE_LEARNED_KB:
 
-                ;
+                do_nothing();
                 char *keyboard_read = strdup(message_get + strlen(COMMAND_LEARN_FL));
 
                 char *concept = NULL, *sentence = NULL;
-
 
                 int split = parse_str(keyboard_read);
 
@@ -104,19 +107,19 @@ int main(void) {
                          0,
                          LEARNED_KB);
 
-                gtpList *new = list_head;
+                gtpList *keyboard_traverse = list_head;
 
                 while (1) {
 
-                    if (new == NULL) {
-                        // TODO: added element not found in list, "throw" error
+                    if (keyboard_traverse == NULL) {
+                        fprintf(stderr, "element %s didn't get added to the list", concept);
                         exit(DEBUG_EXIT);
                     }
 
-                    if (!strcmp(new->concept, concept)) {
+                    if (!strcmp(keyboard_traverse->concept, concept)) {
                         break;
                     }
-                    new = new->next;
+                    keyboard_traverse = keyboard_traverse->next;
                 }
 
                 free(concept);
@@ -124,38 +127,63 @@ int main(void) {
                 fprintf(stdout,
                         "%s learned: %s\n",
                         USER_CHATBOT,
-                        new->concept);
+                        keyboard_traverse->concept);
 
                 fprintf(dialog,
                         "%s learned: %s\n",
                         USER_CHATBOT,
-                        new->concept);
+                        keyboard_traverse->concept);
 
                 break;
 
             case CASE_FORGET:
+
+                do_nothing();
+                char *to_delete = strdup(message_get + strlen(COMMAND_FORGET));
+
+                str_to_upper(to_delete);
+
+                gtpList *delete_ptr = list_head;
+
+                while (1) {
+
+                    if (delete_ptr == NULL) {
+                        break;
+                    }
+
+                    if (strstr(delete_ptr->absolute_concept, to_delete)) {
+                        delete_node(delete_ptr);
+                    }
+                    delete_ptr = delete_ptr->next;
+                }
+
                 break;
 
             case CASE_GENERAL:
 
-                ;
+                do_nothing();
                 size_t ret = random_custom(0, 5);
                 fprintf(stdout, "%s%s\n", USER_CHATBOT, general_responses[ret]);
                 fprintf(dialog, "%s%s\n", USER_CHATBOT, general_responses[ret]);
                 break;
 
             case CASE_EXIT:
+
+                do_nothing();
                 fprintf(stdout, "%s Whatever... as if I care... at least I can finally get a break from your dumb-ass... Conversation saved to file.\n", USER_CHATBOT);
                 fprintf(dialog, "%s Whatever... as if I care... at least I can finally get a break from your dumb-ass... Conversation saved to file.\n", USER_CHATBOT);
                 running = false;
                 break;
 
             case CASE_FORTY_TWO:
+
+                do_nothing();
                 fprintf(stdout, "%s 42\n", USER_CHATBOT);
                 fprintf(dialog, "%s 42\n", USER_CHATBOT);
                 break;
 
             default:
+                perror("What?");
                 break;
 
         }

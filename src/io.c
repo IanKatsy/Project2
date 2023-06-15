@@ -49,3 +49,49 @@ char *read_string(void) {
 
     return str;
 }
+
+
+int read_file(const char *filePath) {
+
+    printf("FILEPATH '%s'\n",
+           filePath);
+
+    FILE *fp = fopen(filePath,
+                     "r");
+
+    if (fp == NULL) {
+        fprintf(stdout,
+                "fopen() returned a NULL pointer, possibly file doesn't exist or user doesn't have correct permissions!\n");
+        fprintf(dialog,
+                "fopen() returned a NULL pointer, possibly file doesn't exist or user doesn't have correct permissions!\n");
+        return 1;
+    }
+
+    char *str;
+    int line_count = 0;
+
+    while (!feof(fp)) {
+
+        line_count++;
+
+        str = read_line(fp);
+        int split = parse_str(str);
+
+        if (split == PARSE_ERROR) {
+            fprintf(stdout, "Format error in line %d!\n", line_count);
+            fprintf(dialog, "Format error in line %d!\n", line_count);
+            free(str);
+            continue;
+        }
+
+        char *concept = NULL, *sentence = NULL;
+
+        split_strings(str, &concept, &sentence, split);
+
+        gen_node(concept, sentence, 0, LEARNED_FL);
+    }
+
+    fclose(fp);
+
+    return 0;
+}

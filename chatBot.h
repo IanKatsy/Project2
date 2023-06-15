@@ -79,6 +79,6 @@ int random_custom(int l_bound, int h_bound);
 
 void str_to_upper(char *string);
 
-int compare_strings(char *string1, char *string2);
+void delete_node(gtpList *node);
 
 #endif // PROJECT2_CHATBOT_H

@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <stdbool.h>
 
 #include <ctype.h>
 
@@ -44,9 +43,10 @@ void split_strings(char *source, char **concept, char **sentence, int split) {
     for (i = 0; i < split; i++) {
         get_concept[i] = source[i];
     }
+    get_concept[split] = 0;
 
     size_t length = len - split;
-    char *get_sentence = malloc(length);
+    char *get_sentence = malloc(length + 1);
 
     if (get_sentence == NULL) {
         perror("malloc() returned a NULL pointer!\n");
@@ -58,6 +58,7 @@ void split_strings(char *source, char **concept, char **sentence, int split) {
     for (i = 0; i < length; i++) {
         get_sentence[i] = source[i + split + 1];
     }
+    get_sentence[length] = 0; // just in case
 
     free(source);
 
@@ -100,19 +101,5 @@ void str_to_upper(char *string) {
             *(string + i) = (char) toupper(*(string + i));
         }
     }
-
-}
-
-int compare_strings(char *string1, char *string2) { // strcmp was acting up
-
-    int i;
-
-    for (i = 0; i < strlen(string1); i++) {
-        if (string1[i] != string2[i]) {
-            break;
-        }
-    }
-
-    return string1[i] - string2[i];
 
 }
