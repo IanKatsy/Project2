@@ -7,45 +7,45 @@
 
 char *read_line(FILE *fp) {
 
-    char *str = NULL, *cp;
-    char ch;
-    int len = 0;
+  char *str = NULL, *cp;
+  char ch;
+  int len = 0;
 
-    bool whitespace_check = false;
+  bool whitespace_check = false;
 
-    do {
-        ch = fgetc(fp);
+  do {
+    ch = fgetc(fp);
 
-        if (ch == '\n' || ch == EOF) {
-            ch = '\0';
-        }
+    if (ch == '\n' || ch == EOF) {
+      ch = '\0';
+    }
 
-        if (isspace(ch)) {
+    if (isspace(ch)) {
 
-            if (whitespace_check)
-                continue;
+      if (whitespace_check)
+        continue;
 
-            whitespace_check = true;
-            ch = ' ';
+      whitespace_check = true;
+      ch = ' ';
 
-        } else {
-            whitespace_check = false;
-        }
+    } else {
+      whitespace_check = false;
+    }
 
-        len++;
+    len++;
 
-        cp = realloc(str, len);
+    cp = realloc(str, len);
 
-        if (cp == NULL) {
-            perror("realloc() returned a NULL pointer");
-            exit(EXIT_FAILURE);
-        }
+    if (cp == NULL) {
+      perror("realloc() returned a NULL pointer");
+      exit(EXIT_FAILURE);
+    }
 
-        str = cp;
+    str = cp;
 
-        str[len - 1] = ch;
+    str[len - 1] = ch;
 
-    } while (ch != '\0');
+  } while (ch != '\0');
 
-    return str;
+  return str;
 }

@@ -9,6 +9,7 @@
 #define LEARNED_FL "file"
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #define USER_CHATBOT "ChatGTP$ "
 #define USER_USER    "me$ "
@@ -36,9 +37,9 @@ typedef struct glist {
 
 extern FILE *dialog;
 
-extern const char *general_responses[];
-
 extern gtpList *list_head;
+
+extern gtpList *search;
 
 void insert_and_sort(gtpList *node);
 
@@ -80,5 +81,11 @@ int random_custom(int l_bound, int h_bound);
 void str_to_upper(char *string);
 
 void delete_node(gtpList *node);
+
+bool find_in_list(const char *abs_concept, bool release);
+
+void print_learned(const char *concept);
+
+void print_forgoten(const char *concept);
 
 #endif // PROJECT2_CHATBOT_H
