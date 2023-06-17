@@ -1,9 +1,23 @@
 #ifndef PROJECT2_CHATBOT_H
 #define PROJECT2_CHATBOT_H
 
+#define _GNU_SOURCE // Used for strcasestr. If it doesn't work on pelopas we //TODO: remove
+
 #define WIKI_DEBUG "../wikipedia_100.txt"
 
 #define DEBUG_EXIT 42069
+
+// #define CDAA //TODO: RM LATER
+// #define CDAB //TODO: RM LATER
+#define CDAC
+
+#ifdef CDAA // -DCDA
+#define DEBUG_LOOKUP(x) printf("Value %p was returned!\n", x);
+#define DEBUG_PRINT_CMP(x, y, z) printf("CMP [ %s ],[ %s ] with a return of %d!\n", x, y, z);
+#else
+#define DEBUG_LOOKUP(x) ;
+#define DEBUG_PRINT_CMP(x, y, z) ;
+#endif
 
 #define LEARNED_KB "kbrd"
 #define LEARNED_FL "file"
@@ -22,7 +36,9 @@ enum commands {
     CASE_ALL_KNOWN,
     CASE_EXIT,
     CASE_FORTY_TWO,
-    CASE_PURE_PRINT
+    CASE_USED_IN_CONVO,
+    CASE_MAKE_CONVO,
+    CASE_UNKNOWN
 };
 
 typedef struct glist {
@@ -82,10 +98,20 @@ void str_to_upper(char *string);
 
 void delete_node(gtpList *node);
 
-bool find_in_list(const char *abs_concept, bool release);
+gtpList *find_in_list(const char *abs_concept, bool release);
+
+void print_general(void);
 
 void print_learned(const char *concept);
 
 void print_forgoten(const char *concept);
+
+void print_already_know(char *concept);
+
+void extract_string(const char *input, char **output);
+
+gtpList *find_in_content(const char *abs_concept);
+
+gtpList *traverse_list(const char *lookup_concept);
 
 #endif // PROJECT2_CHATBOT_H

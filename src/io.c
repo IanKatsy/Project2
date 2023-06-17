@@ -47,9 +47,22 @@ char *read_string(void) {
 
   } while (ch != '\0');
 
-  return str;
-}
+#ifdef CDAB
+  {
+    int i;
+    size_t size = strlen(str);
 
+    printf("Debug string output: \n");
+
+    for (i = 0; i < size && str[i] != ':'; i++) {
+      printf("%d:\t\t['%c', %4d]\n", i, str[i], str[i]);
+    }
+  }
+#endif
+
+  return str;
+
+}
 
 int read_file(const char *filePath) {
 
@@ -85,13 +98,22 @@ int read_file(const char *filePath) {
 
     split_strings(str, &concept, &sentence, split);
 
-    bool is_found = find_in_list(concept, false);
+    gtpList *lookup = traverse_list(concept);
 
-    if (is_found) {
+    DEBUG_LOOKUP(lookup)
 
+    if (lookup) {
+      print_already_know(concept);
+      free(concept);
+      free(sentence);
+      continue;
     }
 
-    gen_node(concept, sentence, 0, LEARNED_FL);
+    gen_node(strdup(concept),
+             sentence,
+             0,
+             LEARNED_FL);
+
   }
 
   fclose(fp);
@@ -190,27 +212,76 @@ void print_forgoten(const char *concept) {
 
 }
 
-void print_knowledge(const char *concept) {
+void print_already_known(const char *concept) {
 
   int ret = random_custom(0, 5 + 1);
 
-  char *dup = strdup(concept);
+  switch (ret) {
+    case 0:
+      fprintf(stdout, "I already knew about %s you idiot!\n", concept);
+      fprintf(dialog, "I already knew about %s you idiot!\n", concept);
+      break;
 
-  str_to_upper(dup);
+    case 1:
+      fprintf(stdout, "Beep Boop ... I already am aware of concept %s!\n", concept);
+      fprintf(dialog, "Beep Boop ... I already am aware of concept %s!\n", concept);
+      break;
 
-  bool is_in = find_in_list(dup, false);
+    case 2:
+      fprintf(stdout, "*insert general response about already knowing %s here*\n", concept);
+      fprintf(dialog, "*insert general response about already knowing %s here*\n", concept);
+      break;
 
-  gtpList *runner = list_head;
+    case 3:
+      fprintf(stdout, "Why did you try to make me learn about %s again? Do you like wasting my time?\n", concept);
+      fprintf(dialog, "Why did you try to make me learn about %s again? Do you like wasting my time?\n", concept);
+      break;
 
-  if (is_in) {
-    while (runner) {
+    case 4:
+      fprintf(stdout, "%s... that seems too familiar to me to learn again\n", concept);
+      fprintf(dialog, "%s... that seems too familiar to me to learn again\n", concept);
+      break;
 
-      if (!strcmp(runner->absolute_concept, concept)) {
-        break;
-      }
-
-      runner = runner->next;
-    }
+    case 5:
+      fprintf(stdout, "%s? Its almost like I knew that already. Oh that's right, I did!\n", concept);
+      fprintf(dialog, "%s? Its almost like I knew that already. Oh that's right, I did!\n", concept);
+      break;
   }
 
+}
+
+void print_unknown(const char *concept) {
+  int ret = random_custom(0, 5 + 1);
+
+  switch (ret) {
+    case 0:
+      fprintf(stdout, "I would know something about %s if you taught you idiot!\n", concept);
+      fprintf(dialog, "I would know something about %s if you taught you idiot!\n", concept);
+      break;
+
+    case 1:
+      fprintf(stdout, "Beep Boop ... concept %s does not compute!\n", concept);
+      fprintf(dialog, "Beep Boop ... concept %s does not compute!\n", concept);
+      break;
+
+    case 2:
+      fprintf(stdout, "*insert general response about not knowing %s here*\n", concept);
+      fprintf(dialog, "*insert general response about not knowing %s here*\n", concept);
+      break;
+
+    case 3:
+      fprintf(stdout, "Do you think this is a joke? I know nothing about %s!\n", concept);
+      fprintf(dialog, "Do you think this is a joke? I know nothing about %s!\n", concept);
+      break;
+
+    case 4:
+      fprintf(stdout, "%s... that doesn't seem familiar\n", concept);
+      fprintf(dialog, "%s... that doesn't seem familiar\n", concept);
+      break;
+
+    case 5:
+      fprintf(stdout, "%s? It's fun to pretend that imaginary things exist. But I'm certain this does not.\n", concept);
+      fprintf(dialog, "%s? It's fun to pretend that imaginary things exist. But I'm certain this does not.\n", concept);
+      break;
+  }
 }

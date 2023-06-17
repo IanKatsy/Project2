@@ -69,7 +69,7 @@ void split_strings(char *source, char **concept, char **sentence, int split) {
 
 }
 
-int parse_command(const char *cp) {
+int parse_command(const char *cp, char **get_output, gtpList **get_data) {
 
   if (!strncmp(cp, COMMAND_LEARN_KB, strlen(COMMAND_LEARN_KB)))
     return CASE_LEARNED_KB;
@@ -90,8 +90,46 @@ int parse_command(const char *cp) {
     return CASE_ALL_KNOWN;
 
   if (!strcasecmp(cp, COMMAND_PURE_PRINT))
-    return CASE_PURE_PRINT;
+    return CASE_USED_IN_CONVO;
 
+  size_t len = strlen(cp);
+
+#ifdef CDAC
+  {
+    printf("cp[len - 1]: [len, %3zu] ['%c', %4d]\n", len, cp[len - 1], cp[len - 1]);
+  }
+#endif
+
+  if (cp[len - 1] == '?') {
+
+#ifdef CDAC
+  {
+    printf("Got in!\n");
+  }
+#endif
+
+    extract_string(cp, get_output);
+
+    if (*get_output == NULL) {
+      return CASE_GENERAL;
+    }
+
+    gtpList *look = traverse_list(*get_output);
+
+    if (look != NULL) {
+      *get_data = look;
+      return CASE_MAKE_CONVO;
+    }
+
+    gtpList *desperate = find_in_content(cp);
+
+    if (desperate) {
+      *get_data = desperate;
+      return CASE_MAKE_CONVO;
+    }
+
+    return CASE_UNKNOWN;
+  }
 
   return CASE_GENERAL;
 }
@@ -106,5 +144,31 @@ void str_to_upper(char *string) {
       *(string + i) = (char) toupper(*(string + i));
     }
   }
+
+}
+
+void extract_string(const char *input, char **output) {
+  const char *start = strchr(input, '*');  // Find the first asterisk
+  const char *end = strrchr(input, '*');   // Find the last asterisk
+
+  if (start == NULL || start == end) {
+    *output = NULL;  // No asterisks found or only one asterisk
+    return;
+  }
+
+  start++;  // Move past the first asterisk
+
+  while (isspace(*start)) {
+    start++;
+  }
+
+  while (end > start && isspace(*(end - 1))) {
+    end--;
+  }
+
+  size_t length = end - start;
+  *output = malloc((length + 1) * sizeof(char));
+  strncpy(*output, start, length);
+  *output[length] = '\0'; // just in case
 
 }

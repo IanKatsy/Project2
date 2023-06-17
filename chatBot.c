@@ -38,7 +38,10 @@ int main(void) {
 
     fprintf(dialog, "%s\n", message_get);
 
-    int cmd = parse_command(message_get);
+    char *get_string = NULL;
+    gtpList *get_data = NULL;
+
+    int cmd = parse_command(message_get, &get_string, &get_data);
 
     switch (cmd) {
 
@@ -59,8 +62,24 @@ int main(void) {
         }
         break;
 
-      case CASE_PURE_PRINT:
+      case CASE_USED_IN_CONVO:
         do_nothing();
+
+        gtpList *i_am_starting_to_get_depressed = list_head;
+        while (i_am_starting_to_get_depressed) {
+
+          if (i_am_starting_to_get_depressed->timesUsed) {
+            fprintf(stdout, "%s, used %d times\n",
+                    i_am_starting_to_get_depressed->concept,
+                    i_am_starting_to_get_depressed->timesUsed);
+            fprintf(dialog, "%s, used %d times\n",
+                    i_am_starting_to_get_depressed->concept,
+                    i_am_starting_to_get_depressed->timesUsed);
+          }
+
+          i_am_starting_to_get_depressed = i_am_starting_to_get_depressed->next;
+        }
+
         break;
 
       case CASE_LEARNED_FL:
@@ -89,7 +108,7 @@ int main(void) {
       case CASE_LEARNED_KB:
 
         do_nothing();
-        char *keyboard_read = strdup(message_get + strlen(COMMAND_LEARN_FL));
+        char *keyboard_read = strdup(message_get + strlen(COMMAND_LEARN_FL) + 1);
 
         char *concept = NULL, *sentence = NULL;
 
@@ -98,15 +117,20 @@ int main(void) {
         if (split == PARSE_ERROR) {
           fprintf(stdout, "Input format error!\n");
           fprintf(dialog, "Input format error!\n");
+          break;
         }
 
-        split_strings(keyboard_read, &concept, &sentence, split);
+        split_strings(keyboard_read, &concept, &sentence, split); // keyboard read gets freed in func
 
-        bool is_in_list = find_in_list(concept, false);
+        gtpList *lookup = traverse_list(concept);
 
-        if (is_in_list) {
-          fprintf(stdout, "Input format error!\n");
-          fprintf(dialog, "Input format error!\n");
+        DEBUG_LOOKUP(lookup)
+
+        if (lookup) {
+          print_already_know(concept);
+          free(concept);
+          free(sentence);
+          break;
         }
 
         gen_node(strdup(concept),
@@ -114,32 +138,17 @@ int main(void) {
                  0,
                  LEARNED_KB);
 
-        gtpList *keyboard_traverse = list_head;
-
-        while (1) {
-
-          if (keyboard_traverse == NULL) {
-            fprintf(stderr, "element %s didn't get added to the list", concept);
-            exit(DEBUG_EXIT);
-          }
-
-          if (!strcmp(keyboard_traverse->concept, concept)) {
-            break;
-          }
-          keyboard_traverse = keyboard_traverse->next;
-        }
-
-        free(concept);
-
         fprintf(stdout,
                 "%s learned: %s\n",
                 USER_CHATBOT,
-                keyboard_traverse->concept);
+                concept);
 
         fprintf(dialog,
                 "%s learned: %s\n",
                 USER_CHATBOT,
-                keyboard_traverse->concept);
+                concept);
+
+        free(concept);
 
         break;
 
@@ -150,38 +159,25 @@ int main(void) {
 
         str_to_upper(to_delete);
 
-        gtpList *delete_ptr = list_head;
 
-        while (1) {
-
-          if (delete_ptr == NULL) {
-            break;
-          }
-
-          if (strstr(delete_ptr->absolute_concept, to_delete)) {
-            delete_node(delete_ptr);
-          }
-          delete_ptr = delete_ptr->next;
-        }
 
         break;
 
       case CASE_GENERAL:
 
         do_nothing();
-        size_t ret = random_custom(0, 5);
-        fprintf(stdout, "%s%s\n", USER_CHATBOT, general_responses[ret]);
-        fprintf(dialog, "%s%s\n", USER_CHATBOT, general_responses[ret]);
+        print_general();
+
         break;
 
       case CASE_EXIT:
-
+        // TODO: haha funny joek
         do_nothing();
         fprintf(stdout,
-                "%s Whatever... as if I care... at least I can finally get a break from your dumb-ass... Conversation saved to file.\n",
+                "%s So long, gay bowser!\n",
                 USER_CHATBOT);
         fprintf(dialog,
-                "%s Whatever... as if I care... at least I can finally get a break from your dumb-ass... Conversation saved to file.\n",
+                "%s So long, gay bowser!\n",
                 USER_CHATBOT);
         running = false;
         break;
@@ -191,6 +187,15 @@ int main(void) {
         do_nothing();
         fprintf(stdout, "%s 42\n", USER_CHATBOT);
         fprintf(dialog, "%s 42\n", USER_CHATBOT);
+        break;
+
+      case CASE_UNKNOWN:
+        do_nothing();
+
+        print_unknown(get_string);
+        { free(get_string); }
+        
+
         break;
 
       default:

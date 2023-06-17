@@ -94,56 +94,84 @@ void delete_node(gtpList *node) {
   free(node);
 }
 
-bool find_in_list(const char *abs_concept, bool release) {
-  gtpList *runner = list_head;
+gtpList *find_in_content(const char *abs_concept) {
 
-  while (runner) {
-    if (!strcasecmp(abs_concept, runner->absolute_concept)) {
-
-      if (release) {
-        free((void *) abs_concept);
-      }
-
-      return true;
-    }
-
-    runner = runner->next;
-  }
-
-  if (release) {
-    free((void *) abs_concept);
-  }
-
-  return false;
-}
-
-bool traverse_list(const char *abs_concept) {
+  /*
+   *
+   * This function should only be called when search is NULL.
+   * Due to that, we only move to the next pointer.
+   * If it finds something on the sentence of a node, it will stop there.
+   *
+   * strcasestr is used and is available due to the definition of "_GNU_SOURCE" before including the string.h header
+   *
+   * */
 
   if (search == NULL) {
     search = list_head;
   }
 
-  int cmp = strcasecmp(search->absolute_concept, abs_concept);
-
-  if (cmp < 0) {
-    while (search != NULL && strcasecmp(search->absolute_concept, abs_concept) < 0)
-      search = search->next;
-
-    if (search == NULL) {
-      return false;
+  while (search) {
+    if (strcasestr(search->sentence, abs_concept)) {
+      return search;
     }
 
-  } else if (cmp > 0) {
-    while (search != NULL && strcasecmp(search->absolute_concept, abs_concept) > 0)
-      search = search->prev;
+    search = search->next;
 
-    if (search == NULL) {
-      return false;
-    }
-
-  } else {
-    return true;
   }
 
-  return false;
+  return NULL;
+}
+
+gtpList *traverse_list(const char *lookup_concept) {
+
+  if (lookup_concept == NULL) {
+    return NULL;
+  }
+
+  if (search == NULL) {
+    search = list_head;
+  }
+
+  int result = 1;
+
+  if (search != NULL) {
+
+    result = strcasecmp(search->absolute_concept, lookup_concept);
+
+    if (result == 0) {
+      DEBUG_PRINT_CMP(search->absolute_concept, lookup_concept, result)
+      return search;
+
+    } else if (result > 0) {
+      while (result > 0 && search != NULL) {
+        search = search->prev; // Move to previous node, absolute concept of search is "bigger" in ascii
+
+        if (search == NULL) {
+          break;
+        }
+
+        result = strcasecmp(search->absolute_concept, lookup_concept);
+        DEBUG_PRINT_CMP(search->absolute_concept, lookup_concept, result)
+      }
+
+    } else {
+      while (result < 0 && search != NULL) {
+        search = search->next; // Move to next node, absolute concept of search is "smaller" in ascii
+
+        if (search == NULL) {
+          break;
+        }
+
+        result = strcasecmp(search->absolute_concept, lookup_concept);
+        DEBUG_PRINT_CMP(search->absolute_concept, lookup_concept, result)
+      }
+    }
+
+  }
+
+  if (result == 0) {
+    return search;
+  }
+
+  return NULL;
 }
