@@ -90,7 +90,7 @@ int parse_str(const char *str);
 
 void split_strings(char *source, char **concept, char **sentence, int split);
 
-int parse_command(const char *cp);
+int parse_command(const char *cp, char **get_output, gtpList **get_data);
 
 int random_custom(int l_bound, int h_bound);
 
@@ -103,6 +103,8 @@ gtpList *find_in_list(const char *abs_concept, bool release);
 void print_general(void);
 
 void print_learned(const char *concept);
+
+void print_unknown(const char *concept);
 
 void print_forgoten(const char *concept);
 
