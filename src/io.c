@@ -91,6 +91,7 @@ int read_file(const char *filePath) {
       fprintf(stdout, "Format error in line %d!\n", line_count);
       fprintf(dialog, "Format error in line %d!\n", line_count);
       free(str);
+      str = NULL;
       continue;
     }
 
@@ -103,11 +104,15 @@ int read_file(const char *filePath) {
     DEBUG_LOOKUP(lookup)
 
     if (lookup) {
-      print_already_know(concept);
+      print_already_known(concept);
       free(concept);
       free(sentence);
+      concept = NULL;
+      sentence = NULL;
       continue;
     }
+
+    print_learned(concept);
 
     gen_node(strdup(concept),
              sentence,
@@ -284,4 +289,101 @@ void print_unknown(const char *concept) {
       fprintf(dialog, "%s? It's fun to pretend that imaginary things exist. But I'm certain this does not.\n", concept);
       break;
   }
+}
+
+void print_definition(gtpList *node) {
+
+  if (node == NULL) {
+    perror("NULL pointer passed to print_definition!\nReturning to function.\n");
+    return;
+  }
+
+  fprintf(stdout, "%s%s:%s\n", USER_CHATBOT, node->concept, node->sentence);
+  fprintf(dialog, "%s%s:%s\n", USER_CHATBOT, node->concept, node->sentence);
+
+  (node->timesUsed)++;
+}
+
+void forget_concepts(const char *concept_list) {
+
+  char *cp1 = (char *) concept_list, *cp2;
+
+  while (isspace(*cp1))
+    cp1++;
+
+  cp2 = cp1;
+
+  char *dup;
+
+  while (cp1 != NULL && *cp1 != 0) {
+
+    while (*cp1 != ',' && *cp1 != 0) {
+      cp1++;
+    }
+
+    if (*cp1 == 0) {
+      break;
+    }
+
+    dup = strndup(cp2, cp1 - cp2);
+
+    if (dup == NULL) {
+      perror("strndup() returned a NULL pointer!");
+      exit(EXIT_FAILURE);
+    }
+
+#ifdef CDAE
+    printf("<string>[dup]: <[Val]: [%s], [Len]: [%zu]>", dup, strlen(dup));
+#endif
+
+    gtpList *rem_node = find_in_list(dup);
+
+    if (rem_node) {
+      while (rem_node) {
+        print_forgoten(rem_node->concept);
+        delete_node(rem_node);
+        rem_node = find_in_list(dup);
+      }
+    } else {
+      print_unknown(dup);
+    }
+
+    rem_node = NULL;
+
+    free(dup);
+    dup = NULL;
+
+    cp1++;
+
+    while (isspace(*cp1))
+      cp1++;
+
+
+    cp2 = cp1;
+
+  }
+
+  char *final = strndup(cp2, cp1 - cp2);
+
+#ifdef CDAE
+  printf("<string>[dup]: <[Val]: [%s], [Len]: [%zu]>", final, strlen(final));
+#endif
+
+  gtpList *final_node = find_in_list(final);
+
+  if (final_node) {
+    while (final_node) {
+      print_forgoten(final_node->concept);
+      delete_node(final_node);
+      final_node = find_in_list(final);
+    }
+  } else {
+    print_unknown(final);
+  }
+
+  final_node = NULL;
+
+  free(final);
+  final = NULL;
+
 }

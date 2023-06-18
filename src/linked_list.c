@@ -94,6 +94,32 @@ void delete_node(gtpList *node) {
   free(node);
 }
 
+gtpList *find_in_list(const char *concept) {
+
+  /*
+   *
+   * goes through all the list to find all concepts that
+   *
+   * have the concept string in them
+   *
+   * */
+
+  gtpList *runner = list_head;
+
+  while (runner) {
+
+    char *cp = strcasestr(runner->concept, concept);
+
+    if (cp)
+      return runner;
+
+    runner = runner->next;
+  }
+
+  return NULL;
+
+}
+
 gtpList *find_in_content(const char *abs_concept) {
 
   /*
@@ -106,12 +132,21 @@ gtpList *find_in_content(const char *abs_concept) {
    *
    * */
 
-  if (search == NULL) {
-    search = list_head;
+  if (search != NULL || abs_concept == NULL) {
+    return NULL;
   }
 
+  search = list_head;
+
   while (search) {
-    if (strcasestr(search->sentence, abs_concept)) {
+
+#ifdef CDAD
+    printf("strcasestr(<search-sentence[%s]>, <abs_concept, [%s]>)\n", search->sentence, abs_concept);
+#endif
+
+    char *cp = strcasestr(search->sentence, abs_concept);
+
+    if (cp) {
       return search;
     }
 

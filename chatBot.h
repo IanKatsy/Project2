@@ -7,11 +7,15 @@
 
 #define DEBUG_EXIT 42069
 
+#ifdef PROJECT2_DEBUGS
 // #define CDAA //TODO: RM LATER
 // #define CDAB //TODO: RM LATER
-#define CDAC
+// #define CDAC //TODO: RM LATER
+// #define CDAD //TODO: RM LATER
+// #define CDAE //TODO: RM LATER
+#endif
 
-#ifdef CDAA // -DCDA
+#ifdef CDAA
 #define DEBUG_LOOKUP(x) printf("Value %p was returned!\n", x);
 #define DEBUG_PRINT_CMP(x, y, z) printf("CMP [ %s ],[ %s ] with a return of %d!\n", x, y, z);
 #else
@@ -98,7 +102,7 @@ void str_to_upper(char *string);
 
 void delete_node(gtpList *node);
 
-gtpList *find_in_list(const char *abs_concept, bool release);
+gtpList *find_in_list(const char *concept);
 
 void print_general(void);
 
@@ -108,7 +112,7 @@ void print_unknown(const char *concept);
 
 void print_forgoten(const char *concept);
 
-void print_already_know(char *concept);
+void print_already_known(const char *concept);
 
 void extract_string(const char *input, char **output);
 

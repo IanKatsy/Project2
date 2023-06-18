@@ -15,7 +15,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define SAVED_CONVERSATION "dialog.txt"
+#define SAVED_CONVERSATION "dialogue.txt"
 
 void do_nothing() {}
 
@@ -28,6 +28,11 @@ int main(void) {
   char *message_get;
 
   dialog = fopen(SAVED_CONVERSATION, "w+");
+
+  if (dialog == NULL) {
+    perror("Error opening dialogue file!");
+    return 1;
+  }
 
   while (running) {
 
@@ -45,24 +50,32 @@ int main(void) {
 
     switch (cmd) {
 
-      case CASE_ALL_KNOWN:
+      case CASE_ALL_KNOWN: {
 
         do_nothing();
         fprintf(stdout, "%s", USER_CHATBOT);
         fprintf(dialog, "%s", USER_CHATBOT);
 
         gtpList *list = list_head;
+
+        if (list == NULL) {
+          putc('\n', stdout);
+          putc('\n', dialog);
+
+        }
+
         while (list) {
 
           // sentences start with ' ' on purpose
-          fprintf(stdout, "%s:%s\n", list->concept, list->sentence);
-          fprintf(dialog, "%s:%s\n", list->concept, list->sentence);
+          fprintf(stdout, "%s%s\n", USER_CHATBOT, list->concept);
+          fprintf(dialog, "%s%s\n", USER_CHATBOT, list->concept);
 
           list = list->next;
         }
+      }
         break;
 
-      case CASE_USED_IN_CONVO:
+      case CASE_USED_IN_CONVO: {
         do_nothing();
 
         gtpList *i_am_starting_to_get_depressed = list_head;
@@ -79,10 +92,10 @@ int main(void) {
 
           i_am_starting_to_get_depressed = i_am_starting_to_get_depressed->next;
         }
-
+      }
         break;
 
-      case CASE_LEARNED_FL:
+      case CASE_LEARNED_FL: {
 
         do_nothing();
         const char *file_read = strdup(message_get + strlen(COMMAND_LEARN_FL));
@@ -94,21 +107,26 @@ int main(void) {
         }
 
         fprintf(stdout,
-                "%s Beep Boop, I consumed the bytes out of %s. They were very spicy!\n",
+                "%sBeep Boop, I consumed the bytes out of %s. They were very spicy!\n",
                 USER_CHATBOT,
                 file_read);
 
         fprintf(dialog,
-                "%s Beep Boop, I consumed the bytes out of %s. They were very spicy!\n",
+                "%sBeep Boop, I consumed the bytes out of %s. They were very spicy!\n",
                 USER_CHATBOT,
                 file_read);
-
+      }
         break;
 
-      case CASE_LEARNED_KB:
+      case CASE_LEARNED_KB: {
 
         do_nothing();
         char *keyboard_read = strdup(message_get + strlen(COMMAND_LEARN_FL) + 1);
+
+        if (keyboard_read == NULL) {
+          perror("strdup() returned a NULL pointer!\n");
+          return 1;
+        }
 
         char *concept = NULL, *sentence = NULL;
 
@@ -127,9 +145,11 @@ int main(void) {
         DEBUG_LOOKUP(lookup)
 
         if (lookup) {
-          print_already_know(concept);
+          print_already_known(concept);
           free(concept);
           free(sentence);
+          concept = NULL;
+          sentence = NULL;
           break;
         }
 
@@ -149,28 +169,36 @@ int main(void) {
                 concept);
 
         free(concept);
-
+        concept = NULL;
+      }
         break;
 
-      case CASE_FORGET:
+      case CASE_FORGET: {
 
         do_nothing();
         char *to_delete = strdup(message_get + strlen(COMMAND_FORGET));
 
-        str_to_upper(to_delete);
+        if (to_delete == NULL) {
+          perror("strdup returned a NULL pointer!\n");
+        }
 
+        forget_concepts(to_delete);
 
-
+        if (to_delete != NULL) {
+          free(to_delete);
+          to_delete = NULL;
+        }
+      }
         break;
 
-      case CASE_GENERAL:
+      case CASE_GENERAL: {
 
         do_nothing();
         print_general();
-
+      }
         break;
 
-      case CASE_EXIT:
+      case CASE_EXIT: {
         // TODO: haha funny joek
         do_nothing();
         fprintf(stdout,
@@ -180,31 +208,57 @@ int main(void) {
                 "%s So long, gay bowser!\n",
                 USER_CHATBOT);
         running = false;
+      }
         break;
 
-      case CASE_FORTY_TWO:
+      case CASE_FORTY_TWO: {
 
         do_nothing();
         fprintf(stdout, "%s 42\n", USER_CHATBOT);
         fprintf(dialog, "%s 42\n", USER_CHATBOT);
+      }
         break;
 
-      case CASE_UNKNOWN:
+      case CASE_UNKNOWN: {
         do_nothing();
 
         print_unknown(get_string);
-        { free(get_string); }
-        
+        if (get_string != NULL) {
+          free(get_string);
+          get_string = NULL;
+        }
 
+      }
         break;
 
-      default:
+      case CASE_MAKE_CONVO: {
+
+        do_nothing();
+
+        if (get_data == NULL) {
+          perror("get_data was a NULL pointer post usage of parse_command()");
+          break;
+        }
+
+        print_definition(get_data);
+
+        if (get_string != NULL) {
+          free(get_string);
+          get_string = NULL;
+        }
+
+      }
+        break;
+
+      default: {
         perror("What?");
+      }
         break;
 
     }
 
     free(message_get);
+    message_get = NULL;
   }
 
   fclose(dialog);

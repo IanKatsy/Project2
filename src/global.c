@@ -4,4 +4,4 @@ gtpList *list_head = NULL;
 
 gtpList *search = NULL;
 
-FILE *dialog;
+FILE *dialog = NULL;

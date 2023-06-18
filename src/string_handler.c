@@ -114,6 +114,10 @@ int parse_command(const char *cp, char **get_output, gtpList **get_data) {
       return CASE_GENERAL;
     }
 
+#ifdef CDAD
+    printf("<Output string of extract_string>[%s]\n", *get_output);
+#endif
+
     gtpList *look = traverse_list(*get_output);
 
     if (look != NULL) {
@@ -121,12 +125,20 @@ int parse_command(const char *cp, char **get_output, gtpList **get_data) {
       return CASE_MAKE_CONVO;
     }
 
-    gtpList *desperate = find_in_content(cp);
+#ifdef CDAD
+    printf("<look>[%p]\n", look);
+#endif
+
+    gtpList *desperate = find_in_content(*get_output);
 
     if (desperate) {
       *get_data = desperate;
       return CASE_MAKE_CONVO;
     }
+
+#ifdef CDAD
+    printf("<desperate>[%p]\n", desperate);
+#endif
 
     return CASE_UNKNOWN;
   }
@@ -148,12 +160,11 @@ void str_to_upper(char *string) {
 }
 
 void extract_string(const char *input, char **output) {
-  const char *start = strchr(input, '*');  // Find the first asterisk
-  const char *end = strrchr(input, '*');   // Find the last asterisk
+  const char *start = strchr(input, '*');
+  const char *end = strrchr(input, '*');
 
   if (start == NULL || start == end) {
-    *output = NULL;  // No asterisks found or only one asterisk
-    return;
+    *output = NULL;
   }
 
   start++;  // Move past the first asterisk
@@ -169,6 +180,6 @@ void extract_string(const char *input, char **output) {
   size_t length = end - start;
   *output = malloc((length + 1) * sizeof(char));
   strncpy(*output, start, length);
-  *output[length] = '\0'; // just in case
+  (*output)[length] = '\0'; // just in case
 
 }

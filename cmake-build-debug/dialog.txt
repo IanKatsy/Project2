@@ -1,0 +1,290 @@
+me$ hello
+ChatGTP$ Yeah ok, got it..
+me$ tell me about *you*
+ChatGTP$ Ok I get it!!! Are you always this annoying?
+me$ tell me about *you*?
+ChatGTP$ Do you think this is a joke? I know nothing about you!
+me$ learn this > you:are bad
+Input format error!
+me$ learn this > you: are a robot
+ChatGTP$ you was really confusing, are you trying to torture me?
+me$ tell me about *you*
+ChatGTP$ Yeah ok, got it..
+me$ tell me about *you*?
+ChatGTP$ you: are a robot
+me$ *a*?
+ChatGTP$ you: are a robot
+me$ read this > nonexistantfile.txt
+ChatGTP$ Are you blind? Try to find that file yourself you idiot. Yeah that's right, you can't!
+me$ read this > ../wikipedia_100.txt
+ChatGTP$ Albedo... I could have lived without learning about that but okay...
+ChatGTP$ Damn learning about Anarchism was so boring!
+ChatGTP$ Achilles... I could have lived without learning about that but okay...
+ChatGTP$ Abraham Lincoln was really confusing, are you trying to torture me?
+ChatGTP$ Damn learning about Alabama was so boring!
+ChatGTP$ An American in Paris? What a garbage concept...
+ChatGTP$ Aristotle was really confusing, are you trying to torture me?
+ChatGTP$ Academy Award for Best Art Direction was really confusing, are you trying to torture me?
+ChatGTP$ Beep Boop... learned concept Actrius!
+ChatGTP$ Damn learning about Academy Award was so boring!
+ChatGTP$ Damn learning about Animalia book was so boring!
+ChatGTP$ Damn learning about International Atomic Time was so boring!
+ChatGTP$ *insert general response about learning Altruism here*
+ChatGTP$ *insert general response about learning Alain Connes here*
+ChatGTP$ Ayn Rand was really confusing, are you trying to torture me?
+ChatGTP$ Damn learning about Allan Dwan was so boring!
+ChatGTP$ Beep Boop... learned concept List of Atlas Shrugged characters!
+ChatGTP$ Algeria was really confusing, are you trying to torture me?
+ChatGTP$ Damn learning about Agricultural science was so boring!
+ChatGTP$ Alchemy... I could have lived without learning about that but okay...
+ChatGTP$ *insert general response about learning Anthropology here*
+ChatGTP$ Damn learning about Alien was so boring!
+ChatGTP$ Astronomer... I could have lived without learning about that but okay...
+ChatGTP$ Amoeboid was really confusing, are you trying to torture me?
+ChatGTP$ Damn learning about ASCII was so boring!
+ChatGTP$ *insert general response about learning Austin disambiguation here*
+ChatGTP$ Beep Boop... learned concept Austria!
+ChatGTP$ Animation? What a garbage concept...
+ChatGTP$ Andre Agassi was really confusing, are you trying to torture me?
+ChatGTP$ Apollo was really confusing, are you trying to torture me?
+ChatGTP$ Austro-Asiatic languages... I could have lived without learning about that but okay...
+ChatGTP$ Beep Boop... learned concept Afroasiatic languages!
+ChatGTP$ Arithmetic mean was really confusing, are you trying to torture me?
+ChatGTP$ *insert general response about learning American Football Conference here*
+ChatGTP$ Andorra was really confusing, are you trying to torture me?
+ChatGTP$ Animal Farm... I could have lived without learning about that but okay...
+ChatGTP$ Amphibian? What a garbage concept...
+ChatGTP$ Alaska... I could have lived without learning about that but okay...
+ChatGTP$ Agriculture? What a garbage concept...
+ChatGTP$ Beep Boop... learned concept Aldous Huxley!
+ChatGTP$ Ada... I could have lived without learning about that but okay...
+ChatGTP$ Aberdeen disambiguation was really confusing, are you trying to torture me?
+ChatGTP$ Analysis of variance? What a garbage concept...
+ChatGTP$ Algae... I could have lived without learning about that but okay...
+ChatGTP$ Damn learning about Appeal was so boring!
+ChatGTP$ Damn learning about Answer was so boring!
+ChatGTP$ Alkane... I could have lived without learning about that but okay...
+ChatGTP$ Appellate court? What a garbage concept...
+ChatGTP$ Beep Boop... learned concept America the Beautiful!
+ChatGTP$ Arraignment was really confusing, are you trying to torture me?
+ChatGTP$ Assistive technology was really confusing, are you trying to torture me?
+ChatGTP$ Abacus was really confusing, are you trying to torture me?
+ChatGTP$ Asphalt was really confusing, are you trying to torture me?
+ChatGTP$ Acid? What a garbage concept...
+ChatGTP$ Beep Boop... learned concept American National Standards Institute!
+ChatGTP$ Beep Boop... learned concept Apollo 11!
+ChatGTP$ Damn learning about Apollo 8 was so boring!
+ChatGTP$ Damn learning about Astronaut was so boring!
+ChatGTP$ Beep Boop... learned concept A Modest Proposal!
+ChatGTP$ Alkali metal was really confusing, are you trying to torture me?
+ChatGTP$ Argument form was really confusing, are you trying to torture me?
+ChatGTP$ Alphabet? What a garbage concept...
+ChatGTP$ Anatomy was really confusing, are you trying to torture me?
+ChatGTP$ Beep Boop... learned concept Atomic number!
+ChatGTP$ Affirming the consequent? What a garbage concept...
+ChatGTP$ Andrei Tarkovsky... I could have lived without learning about that but okay...
+ChatGTP$ Animal disambiguation was really confusing, are you trying to torture me?
+ChatGTP$ Ambiguity? What a garbage concept...
+ChatGTP$ *insert general response about learning Aardvark here*
+ChatGTP$ *insert general response about learning Aardwolf here*
+ChatGTP$ Adobe... I could have lived without learning about that but okay...
+ChatGTP$ Damn learning about A was so boring!
+ChatGTP$ Adventure was really confusing, are you trying to torture me?
+ChatGTP$ Beep Boop... learned concept Autism!
+ChatGTP$ Aruba? What a garbage concept...
+ChatGTP$ Asia was really confusing, are you trying to torture me?
+ChatGTP$ *insert general response about learning Atlantic Ocean here*
+ChatGTP$ Beep Boop... learned concept Articles of Confederation!
+ChatGTP$ Demographics of Angola was really confusing, are you trying to torture me?
+ChatGTP$ Economy of Angola was really confusing, are you trying to torture me?
+ChatGTP$ Arthur Schopenhauer... I could have lived without learning about that but okay...
+ChatGTP$ Politics of Angola... I could have lived without learning about that but okay...
+ChatGTP$ Transport in Angola? What a garbage concept...
+ChatGTP$ Damn learning about Angolan Armed Forces was so boring!
+ChatGTP$ *insert general response about learning Angola here*
+ChatGTP$ Android... I could have lived without learning about that but okay...
+ChatGTP$ Foreign relations of Angola? What a garbage concept...
+ChatGTP$ *insert general response about learning Albert Sidney Johnston here*
+ChatGTP$ List of anthropologists... I could have lived without learning about that but okay...
+ChatGTP$ Damn learning about Actinopterygii was so boring!
+ChatGTP$ Arctic Circle? What a garbage concept...
+ChatGTP$ Damn learning about Afghanistan was so boring!
+ChatGTP$ Albert Einstein was really confusing, are you trying to torture me?
+ChatGTP$ *insert general response about learning Allah here*
+ChatGTP$ Amateur astronomy? What a garbage concept...
+ChatGTP$ Albania was really confusing, are you trying to torture me?
+ChatGTP$ Alberta... I could have lived without learning about that but okay...
+ChatGTP$ *insert general response about learning Azerbaijan here*
+ChatGTP$ *insert general response about learning Aikido here*
+ChatGTP$ Damn learning about Abortion was so boring!
+ChatGTP$ Beep Boop, I consumed the bytes out of ../wikipedia_100.txt. They were very spicy!
+me$ *a*?
+ChatGTP$ A: The letter A is the first letter in the Latin alphabet, a vowel. Its name in English is spelled a; the plural is aes, although this is rare.
+me$ *anarc*?
+ChatGTP$ *insert general response about not knowing anarc here*
+me$ *econ*?
+ChatGTP$ econ... that doesn't seem familiar
+me$ *z*?
+ChatGTP$ Aardvark: The Aardvark (Orycteropus afer) (from Africa) is a medium-sized, burrowing, nocturnal mammal native to Africa. It is the only living species of all Tubulidentata, but there are known other prehistoric species and genera of Tubulidentata. It is sometimes called "antbear", "anteater", "Cape anteater", "earth hog" or "earth pig". The word "aardvark" is famous for being one of the first entries to appear in many encyclopaedias and even abridged dictionaries.
+me$ forget this > you, albania, me
+ChatGTP$ Beep Boop... forgotten concept you!
+ChatGTP$ Albania? Hmm what was that again?
+ChatGTP$ Alkali metal? Hmm what was that again?
+ChatGTP$ America the Beautiful... snapped out of existence (my memory)
+ChatGTP$ Beep Boop... forgotten concept American Football Conference!
+ChatGTP$ Beep Boop... forgotten concept American National Standards Institute!
+ChatGTP$ Why did you make me forget about An American in Paris? It was my favourite you maniac.
+ChatGTP$ Angolan Armed Forces... snapped out of existence (my memory)
+ChatGTP$ Why did you make me forget about Argument form? It was my favourite you maniac.
+ChatGTP$ *insert general response about forgetting Arithmetic mean here*
+ChatGTP$ I feel so much better forgetting about Arraignment!
+ChatGTP$ *insert general response about forgetting Astronomer here*
+ChatGTP$ I feel so much better forgetting about International Atomic Time!
+me$ forget this > me, myself, I
+ChatGTP$ *insert general response about not knowing me here*
+ChatGTP$ I would know something about myself if you taught me about it you idiot!
+ChatGTP$ Why did you make me forget about Aberdeen disambiguation? It was my favourite you maniac.
+ChatGTP$ *insert general response about forgetting Abortion here*
+ChatGTP$ *insert general response about forgetting Abraham Lincoln here*
+ChatGTP$ Academy Award for Best Art Direction... snapped out of existence (my memory)
+ChatGTP$ *insert general response about forgetting Achilles here*
+ChatGTP$ I feel so much better forgetting about Acid!
+ChatGTP$ Beep Boop... forgotten concept Actinopterygii!
+ChatGTP$ *insert general response about forgetting Actrius here*
+ChatGTP$ Affirming the consequent? Hmm what was that again?
+ChatGTP$ *insert general response about forgetting Afghanistan here*
+ChatGTP$ Beep Boop... forgotten concept Afroasiatic languages!
+ChatGTP$ Beep Boop... forgotten concept Agricultural science!
+ChatGTP$ *insert general response about forgetting Agriculture here*
+ChatGTP$ Aikido? Hmm what was that again?
+ChatGTP$ Beep Boop... forgotten concept Alain Connes!
+ChatGTP$ I feel so much better forgetting about Albert Einstein!
+ChatGTP$ Albert Sidney Johnston... snapped out of existence (my memory)
+ChatGTP$ Beep Boop... forgotten concept Algeria!
+ChatGTP$ I feel so much better forgetting about Alien!
+ChatGTP$ *insert general response about forgetting Altruism here*
+ChatGTP$ *insert general response about forgetting Ambiguity here*
+ChatGTP$ Amoeboid? Hmm what was that again?
+ChatGTP$ I feel so much better forgetting about Amphibian!
+ChatGTP$ Analysis of variance... snapped out of existence (my memory)
+ChatGTP$ I feel so much better forgetting about Anarchism!
+ChatGTP$ I feel so much better forgetting about Andre Agassi!
+ChatGTP$ Andrei Tarkovsky... snapped out of existence (my memory)
+ChatGTP$ I feel so much better forgetting about Android!
+ChatGTP$ Animal disambiguation... snapped out of existence (my memory)
+ChatGTP$ Animal Farm? Hmm what was that again?
+ChatGTP$ I feel so much better forgetting about Animalia book!
+ChatGTP$ Beep Boop... forgotten concept Animation!
+ChatGTP$ Beep Boop... forgotten concept Arctic Circle!
+ChatGTP$ Beep Boop... forgotten concept Aristotle!
+ChatGTP$ Why did you make me forget about Articles of Confederation? It was my favourite you maniac.
+ChatGTP$ Beep Boop... forgotten concept ASCII!
+ChatGTP$ Beep Boop... forgotten concept Asia!
+ChatGTP$ Why did you make me forget about Assistive technology? It was my favourite you maniac.
+ChatGTP$ *insert general response about forgetting Atlantic Ocean here*
+ChatGTP$ Beep Boop... forgotten concept Atomic number!
+ChatGTP$ Austin disambiguation? Hmm what was that again?
+ChatGTP$ Beep Boop... forgotten concept Austria!
+ChatGTP$ I feel so much better forgetting about Austro-Asiatic languages!
+ChatGTP$ *insert general response about forgetting Autism here*
+ChatGTP$ I feel so much better forgetting about Azerbaijan!
+ChatGTP$ *insert general response about forgetting Demographics of Angola here*
+ChatGTP$ *insert general response about forgetting Foreign relations of Angola here*
+ChatGTP$ Why did you make me forget about List of anthropologists? It was my favourite you maniac.
+ChatGTP$ Beep Boop... forgotten concept List of Atlas Shrugged characters!
+ChatGTP$ I feel so much better forgetting about Politics of Angola!
+ChatGTP$ Transport in Angola? Hmm what was that again?
+me$ what do you know about
+ChatGTP$ Good for you dude!
+me$ what do you know about?
+ChatGTP$ ChatGTP$ A
+ChatGTP$ A Modest Proposal
+ChatGTP$ Aardvark
+ChatGTP$ Aardwolf
+ChatGTP$ Abacus
+ChatGTP$ Academy Award
+ChatGTP$ Ada
+ChatGTP$ Adobe
+ChatGTP$ Adventure
+ChatGTP$ Alabama
+ChatGTP$ Alaska
+ChatGTP$ Albedo
+ChatGTP$ Alberta
+ChatGTP$ Alchemy
+ChatGTP$ Aldous Huxley
+ChatGTP$ Algae
+ChatGTP$ Alkane
+ChatGTP$ Allah
+ChatGTP$ Allan Dwan
+ChatGTP$ Alphabet
+ChatGTP$ Amateur astronomy
+ChatGTP$ Anatomy
+ChatGTP$ Andorra
+ChatGTP$ Angola
+ChatGTP$ Answer
+ChatGTP$ Anthropology
+ChatGTP$ Apollo
+ChatGTP$ Apollo 11
+ChatGTP$ Apollo 8
+ChatGTP$ Appeal
+ChatGTP$ Appellate court
+ChatGTP$ Arthur Schopenhauer
+ChatGTP$ Aruba
+ChatGTP$ Asphalt
+ChatGTP$ Astronaut
+ChatGTP$ Ayn Rand
+ChatGTP$ Economy of Angola
+me$ *Apollo*?
+ChatGTP$ Apollo: In Greek and Roman mythology, Apollo (in Greek, - Apln or - Apelln), is one of the most important and diverse of the Olympian deities. The ideal of the kouros (a beardless youth), Apollo has been variously recognized as a god of light and the sun; truth and prophecy; archery; medicin, healing and plague; music, poetry, and the arts; and more. Apollo is the son of Zeus and Leto, and has a twin sister, the chaste huntress Artemis.
+me$ what do you talk about?
+A, used 1 times
+Aardvark, used 1 times
+Apollo, used 1 times
+me$ forget this > a
+ChatGTP$ A... snapped out of existence (my memory)
+ChatGTP$ Why did you make me forget about A Modest Proposal? It was my favourite you maniac.
+ChatGTP$ Aardvark? Hmm what was that again?
+ChatGTP$ Aardwolf... snapped out of existence (my memory)
+ChatGTP$ Beep Boop... forgotten concept Abacus!
+ChatGTP$ Beep Boop... forgotten concept Academy Award!
+ChatGTP$ Ada? Hmm what was that again?
+ChatGTP$ Why did you make me forget about Adobe? It was my favourite you maniac.
+ChatGTP$ Adventure... snapped out of existence (my memory)
+ChatGTP$ Why did you make me forget about Alabama? It was my favourite you maniac.
+ChatGTP$ Why did you make me forget about Alaska? It was my favourite you maniac.
+ChatGTP$ Albedo... snapped out of existence (my memory)
+ChatGTP$ *insert general response about forgetting Alberta here*
+ChatGTP$ I feel so much better forgetting about Alchemy!
+ChatGTP$ Aldous Huxley? Hmm what was that again?
+ChatGTP$ Algae... snapped out of existence (my memory)
+ChatGTP$ Why did you make me forget about Alkane? It was my favourite you maniac.
+ChatGTP$ Allah? Hmm what was that again?
+ChatGTP$ Why did you make me forget about Allan Dwan? It was my favourite you maniac.
+ChatGTP$ Why did you make me forget about Alphabet? It was my favourite you maniac.
+ChatGTP$ Amateur astronomy... snapped out of existence (my memory)
+ChatGTP$ Why did you make me forget about Anatomy? It was my favourite you maniac.
+ChatGTP$ Andorra? Hmm what was that again?
+ChatGTP$ Angola? Hmm what was that again?
+ChatGTP$ Why did you make me forget about Answer? It was my favourite you maniac.
+ChatGTP$ Anthropology? Hmm what was that again?
+ChatGTP$ *insert general response about forgetting Apollo here*
+ChatGTP$ Apollo 11... snapped out of existence (my memory)
+ChatGTP$ Apollo 8... snapped out of existence (my memory)
+ChatGTP$ Appeal? Hmm what was that again?
+ChatGTP$ Why did you make me forget about Appellate court? It was my favourite you maniac.
+ChatGTP$ *insert general response about forgetting Arthur Schopenhauer here*
+ChatGTP$ Beep Boop... forgotten concept Aruba!
+ChatGTP$ *insert general response about forgetting Asphalt here*
+ChatGTP$ Astronaut... snapped out of existence (my memory)
+ChatGTP$ I feel so much better forgetting about Ayn Rand!
+ChatGTP$ *insert general response about forgetting Economy of Angola here*
+me$ what do you know about?
+ChatGTP$ 
+me$ forget this > a
+ChatGTP$ Beep Boop... concept a does not compute!
+me$ so long, and thanks for all the fist!
+ChatGTP$ Yeah ok, got it..
+me$ so long, and thanks for all the fish!
+ChatGTP$ Yeah ok, got it..
+me$ so long, and thanks for all the fish
+ChatGTP$  I can finally get some rest... Dialog saved to file, in case you want to read it without waking me up again...
