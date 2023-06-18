@@ -116,8 +116,12 @@ void print_already_known(const char *concept);
 
 void extract_string(const char *input, char **output);
 
+void print_definition(gtpList *node);
+
 gtpList *find_in_content(const char *abs_concept);
 
 gtpList *traverse_list(const char *lookup_concept);
+
+void forget_concepts(const char *concept_list);
 
 #endif // PROJECT2_CHATBOT_H

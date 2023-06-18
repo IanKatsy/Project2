@@ -71,9 +71,9 @@ int read_file(const char *filePath) {
 
   if (fp == NULL) {
     fprintf(stdout,
-            "Are you blind? Try to find that file yourself you idiot. Yeah that's right, you can't!\n");
+            "%sAre you blind? Try to find that file yourself you idiot. Yeah that's right, you can't!\n", USER_CHATBOT);
     fprintf(dialog,
-            "Are you blind? Try to find that file yourself you idiot. Yeah that's right, you can't!!\n");
+            "%sAre you blind? Try to find that file yourself you idiot. Yeah that's right, you can't!\n", USER_CHATBOT);
     return 1;
   }
 
@@ -139,8 +139,8 @@ void print_general(void) {
 
   int ret = random_custom(0, 5 + 1);
 
-  fprintf(stdout, "%s", general_responses[ret]);
-  fprintf(dialog, "%s", general_responses[ret]);
+  fprintf(stdout, "%s%s", USER_CHATBOT, general_responses[ret]);
+  fprintf(dialog, "%s%s", USER_CHATBOT, general_responses[ret]);
 
 }
 
@@ -149,33 +149,33 @@ void print_learned(const char *concept) {
 
   switch (ret) {
     case 0:
-      fprintf(stdout, "Damn learning about %s was so boring!\n", concept);
-      fprintf(dialog, "Damn learning about %s was so boring!\n", concept);
+      fprintf(stdout, "%sDamn learning about %s was so boring!\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%sDamn learning about %s was so boring!\n", USER_CHATBOT, concept);
       break;
 
     case 1:
-      fprintf(stdout, "Beep Boop ... learned concept %s!\n", concept);
-      fprintf(dialog, "Beep Boop ... learned concept %s!\n", concept);
+      fprintf(stdout, "%sBeep Boop... learned concept %s!\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%sBeep Boop... learned concept %s!\n", USER_CHATBOT, concept);
       break;
 
     case 2:
-      fprintf(stdout, "*insert general response about learning %s here*\n", concept);
-      fprintf(dialog, "*insert general response about learning %s here*\n", concept);
+      fprintf(stdout, "%s*insert general response about learning %s here*\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s*insert general response about learning %s here*\n", USER_CHATBOT, concept);
       break;
 
     case 3:
-      fprintf(stdout, "%s was really confusing, are you trying to torture me?\n", concept);
-      fprintf(dialog, "%s was really confusing, are you trying to torture me?\n", concept);
+      fprintf(stdout, "%s%s was really confusing, are you trying to torture me?\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s%s was really confusing, are you trying to torture me?\n", USER_CHATBOT, concept);
       break;
 
     case 4:
-      fprintf(stdout, "%s... I could have lived without learning about that but okay...\n", concept);
-      fprintf(dialog, "%s... I could have lived without learning about that but okay...\n", concept);
+      fprintf(stdout, "%s%s... I could have lived without learning about that but okay...\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s%s... I could have lived without learning about that but okay...\n", USER_CHATBOT, concept);
       break;
 
     case 5:
-      fprintf(stdout, "%s? What a garbage concept...\n", concept);
-      fprintf(dialog, "%s? What a garbage concept...\n", concept);
+      fprintf(stdout, "%s%s? What a garbage concept...\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s%s? What a garbage concept...\n", USER_CHATBOT, concept);
       break;
   }
 }
@@ -185,33 +185,35 @@ void print_forgoten(const char *concept) {
 
   switch (ret) {
     case 0:
-      fprintf(stdout, "I feel so much better forgetting about %s!\n", concept);
-      fprintf(dialog, "I feel so much better forgetting about %s!\n", concept);
+      fprintf(stdout, "%sI feel so much better forgetting about %s!\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%sI feel so much better forgetting about %s!\n", USER_CHATBOT, concept);
       break;
 
     case 1:
-      fprintf(stdout, "Beep Boop ... forgotten concept %s!\n", concept);
-      fprintf(dialog, "Beep Boop ... forgotten concept %s!\n", concept);
+      fprintf(stdout, "%sBeep Boop... forgotten concept %s!\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%sBeep Boop... forgotten concept %s!\n", USER_CHATBOT, concept);
       break;
 
     case 2:
-      fprintf(stdout, "*insert general response about forgetting %s here*\n", concept);
-      fprintf(dialog, "*insert general response about forgetting %s here*\n", concept);
+      fprintf(stdout, "%s*insert general response about forgetting %s here*\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s*insert general response about forgetting %s here*\n", USER_CHATBOT, concept);
       break;
 
     case 3:
-      fprintf(stdout, "Why did you make me forget about %s? It was my favourite you maniac.\n", concept);
-      fprintf(dialog, "Why did you make me forget about %s? It was my favourite you maniac.\n", concept);
+      fprintf(stdout, "%sWhy did you make me forget about %s? It was my favourite you maniac.\n", USER_CHATBOT,
+              concept);
+      fprintf(dialog, "%sWhy did you make me forget about %s? It was my favourite you maniac.\n", USER_CHATBOT,
+              concept);
       break;
 
     case 4:
-      fprintf(stdout, "%s... snapped out of existence (my memory)\n", concept);
-      fprintf(dialog, "%s... snapped out of existence (my memory)\n", concept);
+      fprintf(stdout, "%s%s... snapped out of existence (my memory)\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s%s... snapped out of existence (my memory)\n", USER_CHATBOT, concept);
       break;
 
     case 5:
-      fprintf(stdout, "%s? Hmm what was that again?\n", concept);
-      fprintf(dialog, "%s? Hmm what was that again?\n", concept);
+      fprintf(stdout, "%s%s? Hmm what was that again?\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s%s? Hmm what was that again?\n", USER_CHATBOT, concept);
       break;
   }
 
@@ -223,33 +225,35 @@ void print_already_known(const char *concept) {
 
   switch (ret) {
     case 0:
-      fprintf(stdout, "I already knew about %s you idiot!\n", concept);
-      fprintf(dialog, "I already knew about %s you idiot!\n", concept);
+      fprintf(stdout, "%sI already knew about %s you idiot!\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%sI already knew about %s you idiot!\n", USER_CHATBOT, concept);
       break;
 
     case 1:
-      fprintf(stdout, "Beep Boop ... I already am aware of concept %s!\n", concept);
-      fprintf(dialog, "Beep Boop ... I already am aware of concept %s!\n", concept);
+      fprintf(stdout, "%sBeep Boop... I already am aware of concept %s!\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%sBeep Boop... I already am aware of concept %s!\n", USER_CHATBOT, concept);
       break;
 
     case 2:
-      fprintf(stdout, "*insert general response about already knowing %s here*\n", concept);
-      fprintf(dialog, "*insert general response about already knowing %s here*\n", concept);
+      fprintf(stdout, "%s*insert general response about already knowing %s here*\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s*insert general response about already knowing %s here*\n", USER_CHATBOT, concept);
       break;
 
     case 3:
-      fprintf(stdout, "Why did you try to make me learn about %s again? Do you like wasting my time?\n", concept);
-      fprintf(dialog, "Why did you try to make me learn about %s again? Do you like wasting my time?\n", concept);
+      fprintf(stdout, "%sWhy did you try to make me learn about %s again? Do you like wasting my time?\n", USER_CHATBOT,
+              concept);
+      fprintf(dialog, "%sWhy did you try to make me learn about %s again? Do you like wasting my time?\n", USER_CHATBOT,
+              concept);
       break;
 
     case 4:
-      fprintf(stdout, "%s... that seems too familiar to me to learn again\n", concept);
-      fprintf(dialog, "%s... that seems too familiar to me to learn again\n", concept);
+      fprintf(stdout, "%s%s... that seems too familiar to me to learn again\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s%s... that seems too familiar to me to learn again\n", USER_CHATBOT, concept);
       break;
 
     case 5:
-      fprintf(stdout, "%s? Its almost like I knew that already. Oh that's right, I did!\n", concept);
-      fprintf(dialog, "%s? Its almost like I knew that already. Oh that's right, I did!\n", concept);
+      fprintf(stdout, "%s%s? Its almost like I knew that already. Oh that's right, I did!\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s%s? Its almost like I knew that already. Oh that's right, I did!\n", USER_CHATBOT, concept);
       break;
   }
 
@@ -260,33 +264,37 @@ void print_unknown(const char *concept) {
 
   switch (ret) {
     case 0:
-      fprintf(stdout, "I would know something about %s if you taught you idiot!\n", concept);
-      fprintf(dialog, "I would know something about %s if you taught you idiot!\n", concept);
+      fprintf(stdout, "%sI would know something about %s if you taught me about it you idiot!\n", USER_CHATBOT,
+              concept);
+      fprintf(dialog, "%sI would know something about %s if you taught me about it you idiot!\n", USER_CHATBOT,
+              concept);
       break;
 
     case 1:
-      fprintf(stdout, "Beep Boop ... concept %s does not compute!\n", concept);
-      fprintf(dialog, "Beep Boop ... concept %s does not compute!\n", concept);
+      fprintf(stdout, "%sBeep Boop... concept %s does not compute!\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%sBeep Boop... concept %s does not compute!\n", USER_CHATBOT, concept);
       break;
 
     case 2:
-      fprintf(stdout, "*insert general response about not knowing %s here*\n", concept);
-      fprintf(dialog, "*insert general response about not knowing %s here*\n", concept);
+      fprintf(stdout, "%s*insert general response about not knowing %s here*\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s*insert general response about not knowing %s here*\n", USER_CHATBOT, concept);
       break;
 
     case 3:
-      fprintf(stdout, "Do you think this is a joke? I know nothing about %s!\n", concept);
-      fprintf(dialog, "Do you think this is a joke? I know nothing about %s!\n", concept);
+      fprintf(stdout, "%sDo you think this is a joke? I know nothing about %s!\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%sDo you think this is a joke? I know nothing about %s!\n", USER_CHATBOT, concept);
       break;
 
     case 4:
-      fprintf(stdout, "%s... that doesn't seem familiar\n", concept);
-      fprintf(dialog, "%s... that doesn't seem familiar\n", concept);
+      fprintf(stdout, "%s%s... that doesn't seem familiar\n", USER_CHATBOT, concept);
+      fprintf(dialog, "%s%s... that doesn't seem familiar\n", USER_CHATBOT, concept);
       break;
 
     case 5:
-      fprintf(stdout, "%s? It's fun to pretend that imaginary things exist. But I'm certain this does not.\n", concept);
-      fprintf(dialog, "%s? It's fun to pretend that imaginary things exist. But I'm certain this does not.\n", concept);
+      fprintf(stdout, "%sIt's fun to pretend that imaginary things exist. But I'm certain %s does not.\n", USER_CHATBOT,
+              concept);
+      fprintf(dialog, "%sIt's fun to pretend that imaginary things exist. But I'm certain %s does not.\n", USER_CHATBOT,
+              concept);
       break;
   }
 }

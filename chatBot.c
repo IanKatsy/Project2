@@ -158,15 +158,7 @@ int main(void) {
                  0,
                  LEARNED_KB);
 
-        fprintf(stdout,
-                "%s learned: %s\n",
-                USER_CHATBOT,
-                concept);
-
-        fprintf(dialog,
-                "%s learned: %s\n",
-                USER_CHATBOT,
-                concept);
+        print_learned(concept);
 
         free(concept);
         concept = NULL;
@@ -202,10 +194,10 @@ int main(void) {
         // TODO: haha funny joek
         do_nothing();
         fprintf(stdout,
-                "%s So long, gay bowser!\n",
+                "%s I can finally get some rest... Dialog saved to file, in case you want to read it without waking me up again...\n",
                 USER_CHATBOT);
         fprintf(dialog,
-                "%s So long, gay bowser!\n",
+                "%s I can finally get some rest... Dialog saved to file, in case you want to read it without waking me up again...\n",
                 USER_CHATBOT);
         running = false;
       }
