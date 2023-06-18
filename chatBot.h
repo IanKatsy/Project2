@@ -124,4 +124,6 @@ gtpList *traverse_list(const char *lookup_concept);
 
 void forget_concepts(const char *concept_list);
 
+void CleanupList(gtpList* node);
+
 #endif // PROJECT2_CHATBOT_H

@@ -210,3 +210,10 @@ gtpList *traverse_list(const char *lookup_concept) {
 
   return NULL;
 }
+
+void CleanupList(gtpList* node) {
+    if (node == NULL)
+        return;
+    CleanupList(node->next);
+    delete_node(node);
+}

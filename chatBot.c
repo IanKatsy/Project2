@@ -253,6 +253,9 @@ int main(void) {
     message_get = NULL;
   }
 
+  gtpList* end = list_head;
+  CleanupList(end);
+
   fclose(dialog);
   return 0;
 
